@@ -1,3 +1,3 @@
-require('sthenvim.plugins')
-require('sthenvim.config')
-require('sthenvim.colorscheme')
+require('plugins')
+require('config')
+require('colorscheme')

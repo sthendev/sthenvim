@@ -1,4 +1,5 @@
 return require('packer').startup(function(use)
+
     -- packer can manage itself
     use 'wbthomason/packer.nvim'
 
@@ -8,8 +9,5 @@ return require('packer').startup(function(use)
 		-- themes
 		use { 'sainnhe/gruvbox-material' }
 		use { '~/projects/mariana.vim' }
-
-		-- blame
-		use { 'tveskag/nvim-blame-line' }
 
 end)
