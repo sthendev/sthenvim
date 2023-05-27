@@ -46,6 +46,11 @@ return require('packer').startup(function(use)
     }
 
     use {
+        'nvim-lualine/lualine.nvim',
+        config = function() require('setup.lualine').setup() end
+    }
+
+    use {
         'embark-theme/vim',
         as = 'emabrk'
     }
