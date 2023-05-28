@@ -37,6 +37,10 @@ local theme = {
   },
 }
 
+local function lspstatus()
+    return require('lsp-status').status()
+end
+
 function M.setup()
     require('lualine').setup{
         options = {
@@ -61,7 +65,7 @@ function M.setup()
             lualine_a = {'mode'},
             lualine_b = {'branch', 'diff', 'diagnostics'},
             lualine_c = {'filename'},
-            lualine_x = {'encoding', 'fileformat', 'filetype'},
+            lualine_x = { lspstatus, 'encoding', 'fileformat', 'filetype'},
             lualine_y = {'progress'},
             lualine_z = {'location'}
         },

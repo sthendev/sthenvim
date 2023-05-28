@@ -5,7 +5,8 @@ local M = {
         expandtab = true,
         termguicolors = true,
         number = true,
-        relativenumber = true
+        relativenumber = true,
+        ttimeoutlen = 0
     },
     globals = {
         mapleader = " "

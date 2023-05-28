@@ -12,8 +12,7 @@ function M.setup()
         mapping = cmp.mapping.preset.insert({
             ['<C-n>'] = cmp.mapping.scroll_docs(-4),
             ['<C-p>'] = cmp.mapping.scroll_docs(4),
-            ['<C-s>'] = cmp.mapping.complete(),
-            ['<Esc>'] = cmp.mapping.abort(),
+            ['<C-h>'] = cmp.mapping.complete(),
             ['<Tab>'] = cmp.mapping.confirm({select = true}),
         }),
         sources = cmp.config.sources({
