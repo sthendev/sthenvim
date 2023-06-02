@@ -52,6 +52,11 @@ return require('packer').startup(function(use)
     }
 
     use {
+        'lukas-reineke/indent-blankline.nvim',
+        config = function() require('setup.indent-blankline').setup() end
+    }
+
+    use {
         'embark-theme/vim',
         as = 'emabrk'
     }
