@@ -30,6 +30,12 @@ return require('packer').startup(function(use)
         'nvim-treesitter/nvim-treesitter',
         config = function() require('setup.nvim-treesitter').setup() end
     }
+
+    use {
+        'nvim-treesitter/nvim-treesitter-context',
+        config = function() require('setup.nvim-treesitter-context').setup() end
+    }
+
     use 'nvim-treesitter/playground'
 
     use {
