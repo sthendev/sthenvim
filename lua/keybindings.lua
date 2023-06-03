@@ -1,10 +1,8 @@
-local telescope = require('telescope.builtin')
-local telescope_custom = require('setup.telescope')
-
+local builtin = require('telescope.builtin')
 local keybindings = {
-    {'n', '<leader>ff', telescope_custom.project_files, {}},
-    {'n', '<leader>fg', telescope.live_grep, {}},
-    {'n', '<leader>fb', telescope.buffers, {}},
+    {'n', '<leader>ff', builtin.find_files, {}},
+    {'n', '<leader>fg', builtin.live_grep, {}},
+    {'n', '<leader>fb', builtin.buffers, {}},
 
     {'n', '<leader>yy', '"+yy', {}},
     {'n', '<leader>dd', '"+dd', {}},
