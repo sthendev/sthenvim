@@ -22,7 +22,8 @@ M.config = {
             },
         },
     },
-    pyright = {}
+    pyright = {},
+    cmake = {}
 }
 
 M.capabilities = vim.tbl_extend(
