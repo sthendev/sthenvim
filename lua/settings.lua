@@ -6,10 +6,15 @@ local M = {
         termguicolors = true,
         number = true,
         relativenumber = true,
-        ttimeoutlen = 0
+        ttimeoutlen = 0,
+        nrformats = {'hex', 'alpha'},
+        colorcolumn = {80},
     },
     globals = {
         mapleader = " "
+    },
+    config = {
+        trim_whitespace_on_write = true
     }
 }
 

@@ -1,3 +1,4 @@
+local settings = require('settings')
 local builtin = require('telescope.builtin')
 local keybindings = {
     {'n', '<leader>ff', builtin.find_files, {}},
@@ -38,3 +39,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
         bind('n', 'gr', vim.lsp.buf.references, opts)
     end,
 })
+
+if settings.config.trim_whitespace_on_write then
+    vim.api.nvim_create_autocmd('BufWritePre', {
+        pattern = '*',
+        command = ':%s/\\s\\+$//e'
+    })
+end
