@@ -10,13 +10,13 @@ function M.setup()
             end,
         },
         mapping = cmp.mapping.preset.insert({
-            ['<C-n>'] = cmp.mapping.scroll_docs(-4),
-            ['<C-p>'] = cmp.mapping.scroll_docs(4),
+            ['<C-j>'] = cmp.mapping.select_next_item(),
+            ['<C-k>'] = cmp.mapping.select_prev_item(),
             ['<C-h>'] = cmp.mapping.complete(),
             ['<Tab>'] = cmp.mapping.confirm({select = true}),
         }),
         sources = cmp.config.sources({
-            {name = 'nvim-lsp'},
+            {name = 'nvim_lsp'},
             {name = 'nvim_lsp_signature_help'},
             {name = 'vsnip'},
         }, {

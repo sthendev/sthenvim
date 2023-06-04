@@ -18,6 +18,9 @@ local keybindings = {
     {'v', '<leader>d', '"+d', {}},
     {'v', '<leader>p', '"+p', {}},
     {'v', '<leader>P', '"+P', {}},
+
+    {'i', '<C-j>', '<nop>', {}},
+    {'i', '<C-k>', '<nop>', {}},
 }
 
 local function bind(mode, key, fn, args)
