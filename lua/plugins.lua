@@ -28,6 +28,9 @@ return require('packer').startup(function(use)
 
     use {
         'nvim-treesitter/nvim-treesitter',
+        requires = {
+            {'JoosepAlviste/nvim-ts-context-commentstring'},
+        },
         config = function() require('setup.nvim-treesitter').setup() end
     }
 
@@ -60,6 +63,11 @@ return require('packer').startup(function(use)
     use {
         'lukas-reineke/indent-blankline.nvim',
         config = function() require('setup.indent-blankline').setup() end
+    }
+
+    use {
+        'numToStr/Comment.nvim',
+        config = function() require('setup.comment').setup() end
     }
 
     use {
