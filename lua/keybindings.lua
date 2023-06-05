@@ -1,9 +1,10 @@
 local settings = require('settings')
-local builtin = require('telescope.builtin')
+local telescope = require('telescope.builtin')
+
 local keybindings = {
-    {'n', '<leader>ff', builtin.find_files, {}},
-    {'n', '<leader>fg', builtin.live_grep, {}},
-    {'n', '<leader>fb', builtin.buffers, {}},
+    {'n', '<leader>ff', telescope.find_files, {}},
+    {'n', '<leader>fg', telescope.live_grep, {}},
+    {'n', '<leader>fb', telescope.buffers, {}},
 
     {'n', '<leader>yy', '"+yy', {}},
     {'n', '<leader>dd', '"+dd', {}},
@@ -13,6 +14,11 @@ local keybindings = {
     {'n', '<leader>dk', vim.diagnostic.goto_prev, {}},
     {'n', '<leader>dj', vim.diagnostic.goto_next, {}},
     {'n', '<leader>do', vim.diagnostic.open_float, {}},
+
+    {'n', '<leader>ck', ':GitConflictPrevConflict<CR>', {}},
+    {'n', '<leader>cj', ':GitConflictNextConflict<CR>', {}},
+    {'n', '<leader>cc', ':GitConflictChooseOurs<CR>', {}},
+    {'n', '<leader>ci', ':GitConflictChooseTheirs<CR>', {}},
 
     {'v', '<leader>y', '"+y', {}},
     {'v', '<leader>d', '"+d', {}},

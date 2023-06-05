@@ -71,6 +71,12 @@ return require('packer').startup(function(use)
     }
 
     use {
+        'akinsho/git-conflict.nvim',
+        tag = '*',
+        config = function() require('setup.git-conflict').setup() end
+    }
+
+    use {
         'embark-theme/vim',
         as = 'emabrk'
     }
