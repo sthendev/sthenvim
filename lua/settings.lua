@@ -25,6 +25,4 @@ for k, v in pairs(M.globals) do
     vim.g[k] = v
 end
 
-vim.cmd('colorscheme embark')
-
 return M
