@@ -1,5 +1,6 @@
 local settings = require('settings')
 local telescope = require('telescope.builtin')
+local utils = require('utils')
 
 local keybindings = {
     {'n', '<leader>ff', telescope.find_files, {}},
@@ -29,23 +30,19 @@ local keybindings = {
     {'i', '<C-k>', '<nop>', {}},
 }
 
-local function bind(mode, key, fn, args)
-    vim.keymap.set(mode, key, fn, args)
-end
-
 for _, v in ipairs(keybindings) do
-    bind(unpack(v))
+    utils.bind(unpack(v))
 end
 
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
     callback = function(ev)
         local opts = {buffer = ev.buf}
-        bind('n', 'gD', vim.lsp.buf.declaration, opts)
-        bind('n', 'gd', vim.lsp.buf.definition, opts)
-        bind('n', 'gh', vim.lsp.buf.hover, opts)
-        bind('n', 'gi', vim.lsp.buf.implementation, opts)
-        bind('n', 'gr', vim.lsp.buf.references, opts)
+        utils.bind('n', 'gD', vim.lsp.buf.declaration, opts)
+        utils.bind('n', 'gd', vim.lsp.buf.definition, opts)
+        utils.bind('n', 'gh', vim.lsp.buf.hover, opts)
+        utils.bind('n', 'gi', vim.lsp.buf.implementation, opts)
+        utils.bind('n', 'gr', vim.lsp.buf.references, opts)
     end,
 })
 
