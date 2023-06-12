@@ -77,6 +77,17 @@ return require('packer').startup(function(use)
     }
 
     use {
+        'kylechui/nvim-surround',
+        tag = "*",
+        config = function() require('setup.nvim-surround').setup() end
+    }
+
+    use {
+        'windwp/nvim-autopairs',
+        config = function() require('setup.nvim-autopairs').setup() end
+    }
+
+    use {
         'embark-theme/vim',
         as = 'emabrk'
     }
