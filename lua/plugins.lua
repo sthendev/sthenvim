@@ -1,6 +1,11 @@
 return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
+    use {
+        'windwp/nvim-autopairs',
+        config = function() require('setup.nvim-autopairs').setup() end
+    }
+
     use 'hrsh7th/vim-vsnip'
 
     use {
@@ -80,11 +85,6 @@ return require('packer').startup(function(use)
         'kylechui/nvim-surround',
         tag = "*",
         config = function() require('setup.nvim-surround').setup() end
-    }
-
-    use {
-        'windwp/nvim-autopairs',
-        config = function() require('setup.nvim-autopairs').setup() end
     }
 
     use {

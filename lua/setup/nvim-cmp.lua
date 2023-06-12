@@ -1,5 +1,6 @@
 local M = {}
 
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 local cmp = require('cmp')
 
 function M.setup()
@@ -23,6 +24,11 @@ function M.setup()
             {name = 'buffer'},
         }),
     }
+
+    cmp.event:on(
+        'confirm_done',
+        cmp_autopairs.on_confirm_done{}
+    )
 end
 
 return M
