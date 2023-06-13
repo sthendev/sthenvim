@@ -7,3 +7,5 @@ require('commands')
 require('colorscheme')
 
 utils.prequire('work')
+
+require('project')
