@@ -22,7 +22,11 @@ M.config = {
             },
         },
     },
-    pyright = {},
+    pyright = {
+        analysis = {
+            autoImportCompletions = false
+        }
+    },
     cmake = {}
 }
 
