@@ -88,8 +88,8 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'ggandor/leap.nvim',
-        config = function() require('setup.leap').setup() end
+        'folke/flash.nvim',
+        config = function() require('setup.flash').setup() end
     }
 
     use {
