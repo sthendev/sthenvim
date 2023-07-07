@@ -1,12 +1,14 @@
 return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
+    use 'tpope/vim-fugitive'
+
+    use 'tpope/vim-sleuth'
+
     use {
         'windwp/nvim-autopairs',
         config = function() require('setup.nvim-autopairs').setup() end
     }
-
-    use 'hrsh7th/vim-vsnip'
 
     use {
         'hrsh7th/nvim-cmp',
@@ -17,6 +19,7 @@ return require('packer').startup(function(use)
             {'hrsh7th/cmp-cmdline'},
             {'hrsh7th/cmp-vsnip'},
             {'hrsh7th/cmp-nvim-lsp-signature-help'},
+            {'hrsh7th/vim-vsnip'}
         },
         config = function() require('setup.nvim-cmp').setup() end
     }
@@ -28,7 +31,18 @@ return require('packer').startup(function(use)
 
     use {
         'neovim/nvim-lspconfig',
-        config = function() require('setup.nvim-lspconfig').setup() end
+        config = function() require('setup.nvim-lspconfig').setup() end,
+        requires = {
+            {
+                'j-hui/fidget.nvim',
+                tag = 'legacy',
+                config = function() require('setup.fidget').setup() end
+            },
+            {
+                'folke/neodev.nvim',
+                config = function() require('setup.neodev').setup() end
+            },
+        }
     }
 
     use {
