@@ -25,11 +25,6 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'nvim-lua/lsp-status.nvim',
-        config = function() require('setup.lsp-status').setup() end
-    }
-
-    use {
         'neovim/nvim-lspconfig',
         config = function() require('setup.nvim-lspconfig').setup() end,
         requires = {
