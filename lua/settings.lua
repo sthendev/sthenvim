@@ -10,7 +10,8 @@ local M = {
         colorcolumn = {80},
     },
     globals = {
-        mapleader = " "
+        mapleader = ' ',
+        maplocalleader = ' '
     },
     config = {
         trim_whitespace_on_write = true
