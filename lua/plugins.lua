@@ -101,6 +101,8 @@ return require('packer').startup(function(use)
         config = function() require('setup.flash').setup() end
     }
 
+    use 'sthendev/vim-todo'
+
     use {
         'embark-theme/vim',
         as = 'emabrk'
