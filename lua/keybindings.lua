@@ -23,7 +23,7 @@ local keybindings = {
 
     {'n', '<leader>gg', ':FloatermNew --name=git lazygit<CR>'},
     {'n', '<leader>tt', ':FloatermToggle term<CR>'},
-    {'t', '<ESC>', '<C-\\><C-n>:FloatermToggle term<CR>'},
+    {'t', '<C-w>', '<C-\\><C-n>:FloatermToggle term<CR>'},
 
     {'v', '<leader>y', '"+y', {}},
     {'v', '<leader>d', '"+d', {}},
