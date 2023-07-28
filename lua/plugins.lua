@@ -101,6 +101,11 @@ return require('packer').startup(function(use)
         config = function() require('setup.flash').setup() end
     }
 
+    use {
+        'voldikss/vim-floaterm',
+        config = function() require('setup.floaterm').setup() end
+    }
+
     use 'sthendev/vim-todo'
 
     use {

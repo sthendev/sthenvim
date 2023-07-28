@@ -18,12 +18,20 @@ local M = {
     }
 }
 
+function M.set_option(key, value)
+    vim.opt[key] = value
+end
+
+function M.set_global(key, value)
+    vim.g[key] = value
+end
+
 for k, v in pairs(M.options) do
-    vim.opt[k] = v
+    M.set_option(k, v)
 end
 
 for k, v in pairs(M.globals) do
-    vim.g[k] = v
+    M.set_global(k, v)
 end
 
 return M

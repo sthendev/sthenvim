@@ -21,6 +21,8 @@ local keybindings = {
     {'n', '<leader>cc', ':GitConflictChooseOurs<CR>', {}},
     {'n', '<leader>ci', ':GitConflictChooseTheirs<CR>', {}},
 
+    {'n', '<leader>gg', ':FloatermNew lazygit<CR>'},
+
     {'v', '<leader>y', '"+y', {}},
     {'v', '<leader>d', '"+d', {}},
     {'v', '<leader>p', '"+p', {}},
