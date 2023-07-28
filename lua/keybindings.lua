@@ -21,7 +21,9 @@ local keybindings = {
     {'n', '<leader>cc', ':GitConflictChooseOurs<CR>', {}},
     {'n', '<leader>ci', ':GitConflictChooseTheirs<CR>', {}},
 
-    {'n', '<leader>gg', ':FloatermNew lazygit<CR>'},
+    {'n', '<leader>gg', ':FloatermNew --name=git lazygit<CR>'},
+    {'n', '<leader>tt', ':FloatermToggle term<CR>'},
+    {'t', '<leader>tt', '<C-\\><C-n>:FloatermToggle term<CR>'},
 
     {'v', '<leader>y', '"+y', {}},
     {'v', '<leader>d', '"+d', {}},
