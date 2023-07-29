@@ -3,35 +3,40 @@ local telescope = require('telescope.builtin')
 local utils = require('utils')
 
 local keybindings = {
-    {'n', '<leader>ff', telescope.find_files, {}},
-    {'n', '<leader>fg', telescope.live_grep, {}},
-    {'n', '<leader>fb', telescope.buffers, {}},
+    {'n', '<leader>ff', telescope.find_files},
+    {'n', '<leader>fg', telescope.live_grep},
+    {'n', '<leader>fb', telescope.buffers},
 
-    {'n', '<leader>yy', '"+yy', {}},
-    {'n', '<leader>dd', '"+dd', {}},
-    {'n', '<leader>p', '"+p', {}},
-    {'n', '<leader>P', '"+P', {}},
+    {'n', '<leader>yy', '"+yy'},
+    {'n', '<leader>dd', '"+dd'},
+    {'n', '<leader>p', '"+p'},
+    {'n', '<leader>P', '"+P'},
 
-    {'n', '<leader>dk', vim.diagnostic.goto_prev, {}},
-    {'n', '<leader>dj', vim.diagnostic.goto_next, {}},
-    {'n', '<leader>do', vim.diagnostic.open_float, {}},
+    {'n', '<leader>dk', vim.diagnostic.goto_prev},
+    {'n', '<leader>dj', vim.diagnostic.goto_next},
+    {'n', '<leader>do', vim.diagnostic.open_float},
 
-    {'n', '<leader>ck', ':GitConflictPrevConflict<CR>', {}},
-    {'n', '<leader>cj', ':GitConflictNextConflict<CR>', {}},
-    {'n', '<leader>cc', ':GitConflictChooseOurs<CR>', {}},
-    {'n', '<leader>ci', ':GitConflictChooseTheirs<CR>', {}},
+    {'n', '<leader>ck', ':GitConflictPrevConflict<CR>'},
+    {'n', '<leader>cj', ':GitConflictNextConflict<CR>'},
+    {'n', '<leader>cc', ':GitConflictChooseOurs<CR>'},
+    {'n', '<leader>ci', ':GitConflictChooseTheirs<CR>'},
 
     {'n', '<leader>gg', ':FloatermNew --name=git lazygit<CR>'},
     {'n', '<leader>tt', ':FloatermToggle term<CR>'},
     {'t', '<C-w>', '<C-\\><C-n>:FloatermToggle term<CR>'},
 
-    {'v', '<leader>y', '"+y', {}},
-    {'v', '<leader>d', '"+d', {}},
-    {'v', '<leader>p', '"+p', {}},
-    {'v', '<leader>P', '"+P', {}},
+    {'n', '<C-w><C-h>', ':vertical resize -5<CR>'},
+    {'n', '<C-w><C-l>', ':vertical resize +5<CR>'},
+    {'n', '<C-w><C-j>', ':resize -5<CR>'},
+    {'n', '<C-w><C-k>', ':resize +5<CR>'},
 
-    {'i', '<C-j>', '<nop>', {}},
-    {'i', '<C-k>', '<nop>', {}},
+    {'v', '<leader>y', '"+y'},
+    {'v', '<leader>d', '"+d'},
+    {'v', '<leader>p', '"+p'},
+    {'v', '<leader>P', '"+P'},
+
+    {'i', '<C-j>', '<nop>'},
+    {'i', '<C-k>', '<nop>'},
 }
 
 for _, v in ipairs(keybindings) do
