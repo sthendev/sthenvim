@@ -2,10 +2,17 @@ local M = {}
 
 local settings = require('settings')
 
+M.config = {
+    width = 0.8,
+    height = 0.8,
+    autoclose = 2,
+    giteditor = false
+}
+
 function M.setup()
-    settings.set_global('floaterm_width', 0.8)
-    settings.set_global('floaterm_height', 0.8)
-    settings.set_global('floaterm_autoclose', 2)
+    for k, v in pairs(M.config) do
+        settings.set_global('floaterm_' .. k, v)
+    end
 end
 
 return M
