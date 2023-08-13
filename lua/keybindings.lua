@@ -1,6 +1,7 @@
 local settings = require('settings')
 local telescope = require('telescope.builtin')
 local utils = require('utils')
+local ls = require('luasnip')
 
 local keybindings = {
     {'n', '<leader>ff', telescope.find_files},
@@ -37,6 +38,11 @@ local keybindings = {
 
     {'i', '<C-j>', '<nop>'},
     {'i', '<C-k>', '<nop>'},
+
+    {'i', '<C-l>', function() ls.jump(1) end},
+    {'s', '<C-l>', function() ls.jump(1) end},
+    {'i', '<C-h>', function() ls.jump(-1) end},
+    {'i', '<C-h>', function() ls.jump(-1) end},
 }
 
 for _, v in ipairs(keybindings) do

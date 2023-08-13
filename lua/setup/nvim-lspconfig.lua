@@ -3,11 +3,7 @@ local M = {}
 local lspconfig = require('lspconfig')
 
 M.config = {
-    clangd = {
-        init_options = {
-            clangdFileStatus = true
-        },
-    },
+    ccls = {},
     lua_ls = {
         settings = {
             Lua = {
