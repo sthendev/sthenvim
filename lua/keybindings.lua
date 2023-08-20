@@ -7,6 +7,8 @@ local keybindings = {
     {'n', '<leader>ff', telescope.find_files},
     {'n', '<leader>fg', telescope.live_grep},
     {'n', '<leader>fb', telescope.buffers},
+    {'n', '<leader>fc', ":e %<.cpp<CR>"},
+    {'n', '<leader>fh', ":e %<.h<CR>"},
 
     {'n', '<leader>yy', '"+yy'},
     {'n', '<leader>dd', '"+dd'},

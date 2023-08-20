@@ -11,7 +11,8 @@ local M = {
     },
     globals = {
         mapleader = ' ',
-        maplocalleader = ' '
+        maplocalleader = ' ',
+        pyindent_disable_parentheses_indenting = true,
     },
     config = {
         trim_whitespace_on_write = true

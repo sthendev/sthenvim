@@ -10,6 +10,12 @@ end
 function M.setup()
     require('telescope').setup{
         defaults = {
+            layout_strategy = 'flex',
+            layout_config = {
+                flex = {
+                    flip_columns = 200
+                }
+            },
             mappings = {
                 n = {
                     ['<C-q>'] = send_to_quickfix,
