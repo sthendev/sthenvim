@@ -1,9 +1,16 @@
 local M = {}
 
 local lspconfig = require('lspconfig')
+local settings = require('settings')
 
 M.config = {
-    ccls = {},
+    ccls = {
+        init_options = {
+            index = {
+                initialBlacklist = settings.config.ccls_initial_blacklist
+            }
+        }
+    },
     lua_ls = {
         settings = {
             Lua = {
