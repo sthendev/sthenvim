@@ -63,7 +63,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end,
 })
 
-if settings.config.trim_whitespace_on_write then
+if settings.get_config('trim_whitespace_on_write') then
     vim.api.nvim_create_autocmd('BufWritePre', {
         pattern = '*',
         command = ':%s/\\s\\+$//e'

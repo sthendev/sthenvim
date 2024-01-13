@@ -7,7 +7,7 @@ M.config = {
     ccls = {
         init_options = {
             index = {
-                initialBlacklist = settings.config.ccls_initial_blacklist
+                initialBlacklist = settings.get_config('ccls_initial_blacklist')
             }
         }
     },

@@ -1,7 +1,7 @@
 local utils = require('utils')
 
-require('plugins')
 require('settings')
+require('plugins')
 require('project')
 require('keybindings')
 require('commands')

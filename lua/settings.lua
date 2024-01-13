@@ -13,7 +13,6 @@ local M = {
         mapleader = ' ',
         maplocalleader = ' ',
         pyindent_disable_parentheses_indenting = true,
-        skip_ts_context_commentstring_module = true,
     },
     config = {
         trim_whitespace_on_write = true,
@@ -27,6 +26,18 @@ end
 
 function M.set_global(key, value)
     vim.g[key] = value
+end
+
+function M.set_config(key, value)
+    M.config[key] = value
+end
+
+function M.get_config(key, default)
+    local v = M.config[key]
+    if v == nil then
+        return default
+    end
+    return v
 end
 
 for k, v in pairs(M.options) do

@@ -10,9 +10,7 @@ function M.setup()
         indent = {
             enable = false
         },
-        context_commentstring = {
-            enable = true
-        },
+        ensure_installed = {'lua', 'cpp', 'c', 'vim', 'vimdoc', 'query'}
     }
 end
 
