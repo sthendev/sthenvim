@@ -13,6 +13,7 @@ local M = {
         mapleader = ' ',
         maplocalleader = ' ',
         pyindent_disable_parentheses_indenting = true,
+        skip_ts_context_commentstring_module = true,
     },
     config = {
         trim_whitespace_on_write = true,
