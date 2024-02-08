@@ -97,11 +97,6 @@ use {
 }
 
 use {
-    'lukas-reineke/indent-blankline.nvim',
-    config = function() require('setup.indent-blankline').setup() end
-}
-
-use {
     'numToStr/Comment.nvim',
     config = function() require('setup.comment').setup() end
 }
