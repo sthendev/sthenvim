@@ -31,7 +31,7 @@ use 'tpope/vim-sleuth'
 
 use {
     'windwp/nvim-autopairs',
-    config = function() require('setup.nvim-autopairs').setup() end
+    config = function() require('nvim-autopairs').setup() end
 }
 
 use {
@@ -54,11 +54,11 @@ use {
     dependencies = {
         {
             'j-hui/fidget.nvim',
-            config = function() require('setup.fidget').setup() end
+            config = function() require('fidget').setup() end
         },
         {
             'folke/neodev.nvim',
-            config = function() require('setup.neodev').setup() end
+            config = function() require('neodev').setup() end
         },
     }
 }
@@ -70,7 +70,7 @@ use {
 
 use {
     'nvim-treesitter/nvim-treesitter-context',
-    config = function() require('setup.nvim-treesitter-context').setup() end
+    config = function() require('treesitter-context').setup() end
 }
 
 use 'nvim-treesitter/playground'
@@ -110,12 +110,7 @@ use {
 use {
     'kylechui/nvim-surround',
     version = '*',
-    config = function() require('setup.nvim-surround').setup() end
-}
-
-use {
-    'folke/flash.nvim',
-    config = function() require('setup.flash').setup() end
+    config = function() require('nvim-surround').setup() end
 }
 
 use {
