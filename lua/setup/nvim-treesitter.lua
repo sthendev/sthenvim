@@ -10,7 +10,15 @@ function M.setup()
         indent = {
             enable = false
         },
-        ensure_installed = {'lua', 'cpp', 'c', 'vim', 'vimdoc', 'query'}
+        ensure_installed = {
+            'c',
+            'cmake',
+            'cpp',
+            'lua',
+            'query',
+            'vim',
+            'vimdoc',
+        }
     }
 end
 
