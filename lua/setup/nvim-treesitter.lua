@@ -11,6 +11,7 @@ function M.setup()
             enable = false
         },
         ensure_installed = {
+            'bash',
             'c',
             'cmake',
             'cpp',
