@@ -1,6 +1,5 @@
 local settings = require('settings')
 local telescope = require('telescope.builtin')
-local utils = require('utils')
 local ls = require('luasnip')
 
 local keybindings = {
@@ -46,18 +45,18 @@ local keybindings = {
 }
 
 for _, v in ipairs(keybindings) do
-    utils.bind(unpack(v))
+    vim.keymap.set(unpack(v))
 end
 
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
     callback = function(ev)
         local opts = {buffer = ev.buf}
-        utils.bind('n', 'gD', vim.lsp.buf.declaration, opts)
-        utils.bind('n', 'gd', vim.lsp.buf.definition, opts)
-        utils.bind('n', 'gh', vim.lsp.buf.hover, opts)
-        utils.bind('n', 'gi', vim.lsp.buf.implementation, opts)
-        utils.bind('n', 'gr', vim.lsp.buf.references, opts)
+        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+        vim.keymap.set('n', 'gh', vim.lsp.buf.hover, opts)
+        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+        vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     end,
 })
 

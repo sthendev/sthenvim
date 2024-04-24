@@ -1,7 +1,5 @@
 local M = {}
 
-local utils = require('utils')
-
 function M.setup()
     require('gitsigns').setup{
         on_attach = function(bufnr)
@@ -10,7 +8,7 @@ function M.setup()
             local function map(mode, l, r, opts)
                 opts = opts or {}
                 opts.buffer = bufnr
-                utils.bind(mode, l, r, opts)
+                vim.keymap.set(mode, l, r, opts)
             end
 
             -- Actions
