@@ -6,7 +6,6 @@ local M = {
         termguicolors = true,
         number = true,
         relativenumber = true,
-        nrformats = {'hex', 'alpha'},
         colorcolumn = {80},
     },
     globals = {

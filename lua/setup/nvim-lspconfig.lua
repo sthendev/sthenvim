@@ -4,7 +4,9 @@ local lspconfig = require('lspconfig')
 local settings = require('settings')
 
 M.config = {
+    clangd = {},
     ccls = {
+        disabled = true,
         init_options = {
             index = {
                 initialBlacklist = settings.get_config('ccls_initial_blacklist')
@@ -38,9 +40,11 @@ M.capabilities = vim.tbl_extend(
 )
 
 function M.setup()
-    for server, settings in pairs(M.config) do
-        settings.capabilities = M.capabilities
-        lspconfig[server].setup(settings)
+    for server, server_settings in pairs(M.config) do
+        if server_settings.disabled ~= true then
+            server_settings.capabilities = M.capabilities
+            lspconfig[server].setup(server_settings)
+        end
     end
 end
 
