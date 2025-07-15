@@ -329,7 +329,50 @@ require("lazy").setup({
 { -- git gutter and more
     "lewis6991/gitsigns.nvim",
     version = "1.*",
-    opts = {}
+    opts = {
+        on_attach = function(bufnr)
+            local gitsigns = require("gitsigns")
+
+            local map = function(keys, func, desc)
+                vim.keymap.set("n", keys, func, { desc = desc, buffer = bufnr})
+            end
+
+            local nav_hunk_prev = function()
+                if vim.wo.diff then
+                    vim.cmd.normal({ "[c", bang = true })
+                else
+                    gitsigns.nav_hunk("prev")
+                end
+            end
+
+            local nav_hunk_next = function()
+                if vim.wo.diff then
+                    vim.cmd.normal({ "]c", bang = true })
+                else
+                    gitsigns.nav_hunk("next")
+                end
+            end
+
+            local blame_line_full = function() gitsigns.blame_line({ full = true }) end
+
+            local setqflist_all = function() gitsigns.setqflist('all') end
+
+            fn_repeat(map, {
+                { "[g",          nav_hunk_prev,                     "Previous [G]it hunk" },
+                { "]g",          nav_hunk_next,                     "Next [G]it hunk" },
+                { "<leader>gs",  gitsigns.stage_hunk,               "[G]it [S]tage hunk" },
+                { "<leader>gr",  gitsigns.reset_hunk,               "[G]it [R]eset hunk" },
+                { "<leader>gS",  gitsigns.stage_buffer,             "[G]it [S]tage buffer" },
+                { "<leader>gR",  gitsigns.reset_buffer,             "[G]it [R]eset buffer" },
+                { "<leader>gp",  gitsigns.preview_hunk,             "[G]it [P]review hunk" },
+                { "<leader>gi",  gitsigns.preview_hunk_inline,      "[G]it preview hunk [I]nline" },
+                { "<leader>gb",  blame_line_full,                   "[G]it [B]lame line" },
+                { "<leader>gB",  gitsigns.blame,                    "[G]it [B]lame buffer" },
+                { "<leader>tb", gitsigns.toggle_current_line_blame, "[T]oggle [B]lame line" },
+                { "<leader>tw", gitsigns.toggle_word_diff,          "[T]oggle [W]ord diff" },
+            })
+        end
+    }
 },
 
 })
@@ -342,49 +385,49 @@ local neogit = require("neogit")
 
 fn_repeat(vim.keymap.set, {
     -- remove highlights:
-    {"n", "<Esc>", "<cmd>nohlsearch<CR>"},
+    { "n", "<Esc>", "<cmd>nohlsearch<CR>"},
 
     -- cut/copy/paste:
-    {"n", "<leader>yy", '"+yy', { desc = "Copy to system clipboard" }},
-    {"n", "<leader>dd", '"+dd', { desc = "Cut to system clipboard" }},
-    {"n", "<leader>p", '"+p',   { desc = "Paste (after) from system clipboard" }},
-    {"n", "<leader>P", '"+P',   { desc = "Paste (before) from system clipboard" }},
-    {"v", "<leader>y", '"+y',   { desc = "Copy highlighted to system clipboard" }},
-    {"v", "<leader>d", '"+d',   { desc = "Cut highlighted to system clipboad" }},
-    {"v", "<leader>p", '"+p',   { desc = "Paste replacing highlighted from system clipboard" }},
-    {"v", "<leader>P", '"+P',   { desc = "Paste replacing highlighted from system clipboard" }},
+    { "n", "<leader>yy", '"+yy', { desc = "Copy to system clipboard" }},
+    { "n", "<leader>dd", '"+dd', { desc = "Cut to system clipboard" }},
+    { "n", "<leader>p", '"+p',   { desc = "Paste (after) from system clipboard" }},
+    { "n", "<leader>P", '"+P',   { desc = "Paste (before) from system clipboard" }},
+    { "v", "<leader>y", '"+y',   { desc = "Copy highlighted to system clipboard" }},
+    { "v", "<leader>d", '"+d',   { desc = "Cut highlighted to system clipboad" }},
+    { "v", "<leader>p", '"+p',   { desc = "Paste replacing highlighted from system clipboard" }},
+    { "v", "<leader>P", '"+P',   { desc = "Paste replacing highlighted from system clipboard" }},
 
     -- telescope:
-    {"n", "<leader>ff", telescope_builtin.find_files,   { desc = "[F]ind [F]iles" }},
-    {"n", "<leader>fg", telescope_lga.live_grep_args,   { desc = "[F]ind by [G]rep" }},
-    {"n", "<leader>fw", telescope_builtin.grep_string,  { desc = "[F]ind current [W]ord" }},
-    {"n", "<leader>fb", telescope_builtin.buffers,      { desc = "[F]ind [B]uffers" }},
-    {"n", "<leader>fk", telescope_builtin.keymaps,      { desc = "[F]ind [K]eymaps" }},
-    {"n", "<leader>fd", telescope_builtin.diagnostics,  { desc = "[F]ind [D]iagnostics" }},
-    {"n", "<leader>fl", telescope_builtin.resume,       { desc = "[F]ind [L]ast search" }},
-    {"n", "<leader>fr", telescope_builtin.oldfiles,     { desc = "[F]ind [R]ecent" }},
-    {"n", "<leader>fh", telescope_builtin.help_tags,    { desc = "[F]ind [H]elp" }},
+    { "n", "<leader>ff", telescope_builtin.find_files,   { desc = "[F]ind [F]iles" }},
+    { "n", "<leader>fg", telescope_lga.live_grep_args,   { desc = "[F]ind by [G]rep" }},
+    { "n", "<leader>fw", telescope_builtin.grep_string,  { desc = "[F]ind current [W]ord" }},
+    { "n", "<leader>fb", telescope_builtin.buffers,      { desc = "[F]ind [B]uffers" }},
+    { "n", "<leader>fk", telescope_builtin.keymaps,      { desc = "[F]ind [K]eymaps" }},
+    { "n", "<leader>fd", telescope_builtin.diagnostics,  { desc = "[F]ind [D]iagnostics" }},
+    { "n", "<leader>fl", telescope_builtin.resume,       { desc = "[F]ind [L]ast search" }},
+    { "n", "<leader>fr", telescope_builtin.oldfiles,     { desc = "[F]ind [R]ecent" }},
+    { "n", "<leader>fh", telescope_builtin.help_tags,    { desc = "[F]ind [H]elp" }},
 
     -- diagnostics:
-    {"n", "<leader>do", vim.diagnostic.open_float, { desc = "[D]iagnostic [O]pen"}},
+    { "n", "<leader>do", vim.diagnostic.open_float, { desc = "[D]iagnostic [O]pen"}},
 
     -- terminal:
-    {"n", "<C-w><C-w>", ":ToggleTerm<CR>",              { desc = "Open terminal" }},
-    {"t", "<C-w><C-w>", "<C-\\><C-n>:ToggleTerm<CR>",   { desc = "Close terminal" }},
-    {"t", "<Esc><Esc>", "<C-\\><C-n>",                  { desc = "Escape terminal mode" }},
+    { "n", "<C-w><C-w>", ":ToggleTerm<CR>",              { desc = "Open terminal" }},
+    { "t", "<C-w><C-w>", "<C-\\><C-n>:ToggleTerm<CR>",   { desc = "Close terminal" }},
+    { "t", "<Esc><Esc>", "<C-\\><C-n>",                  { desc = "Escape terminal mode" }},
 
     -- windows:
-    {"n", "<C-w><C-h>", ":vertical resize -5<CR>",      { desc = "Vertical window resize up" }},
-    {"n", "<C-w><C-l>", ":vertical resize +5<CR>",      { desc = "Vertical window resize down" }},
-    {"n", "<C-w><C-j>", ":resize -5<CR>",               { desc = "Horizontal window resize left" }},
-    {"n", "<C-w><C-k>", ":resize +5<CR>",               { desc = "Horizontal window resize right" }},
+    { "n", "<C-w><C-h>", ":vertical resize -5<CR>",      { desc = "Vertical window resize up" }},
+    { "n", "<C-w><C-l>", ":vertical resize +5<CR>",      { desc = "Vertical window resize down" }},
+    { "n", "<C-w><C-j>", ":resize -5<CR>",               { desc = "Horizontal window resize left" }},
+    { "n", "<C-w><C-k>", ":resize +5<CR>",               { desc = "Horizontal window resize right" }},
 
     -- git:
-    {"n", "<leader>gg", neogit.open,    { desc = "[G]it [S]tatus" }},
+    { "n", "<leader>gg", neogit.open,    { desc = "[G]it [S]tatus" }},
 
     -- disable defaults:
-    {"i", "<C-j>", "<nop>"},
-    {"i", "<C-k>", "<nop>"},
+    { "i", "<C-j>", "<nop>"},
+    { "i", "<C-k>", "<nop>"},
 })
 
 --[[============================= AUTOCOMMANDS =============================]]--
@@ -415,11 +458,11 @@ fn_repeat(vim.api.nvim_create_autocmd, {
                 end
 
                 fn_repeat(map, {
-                    {"gd", vim.lsp.buf.definition,      "[G]o [D]efinition"},
-                    {"gD", vim.lsp.buf.declaration,     "[G]o [D]eclaration"},
-                    {"gh", vim.lsp.buf.hover,           "[G]o [H]over"},
-                    {"gi", vim.lsp.buf.implementation,  "[G]o [I]mplementation"},
-                    {"gr", vim.lsp.buf.references,      "[G]o [R]eferences"},
+                    { "gd", vim.lsp.buf.definition,      "[G]o [D]efinition" },
+                    { "gD", vim.lsp.buf.declaration,     "[G]o [D]eclaration" },
+                    { "gh", vim.lsp.buf.hover,           "[G]o [H]over" },
+                    { "gi", vim.lsp.buf.implementation,  "[G]o [I]mplementation" },
+                    { "gr", vim.lsp.buf.references,      "[G]o [R]eferences" },
                 })
             end,
         }
