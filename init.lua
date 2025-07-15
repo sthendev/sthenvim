@@ -355,8 +355,6 @@ require("lazy").setup({
 
             local blame_line_full = function() gitsigns.blame_line({ full = true }) end
 
-            local setqflist_all = function() gitsigns.setqflist('all') end
-
             fn_repeat(map, {
                 { "[g",          nav_hunk_prev,                     "Previous [G]it hunk" },
                 { "]g",          nav_hunk_next,                     "Next [G]it hunk" },
