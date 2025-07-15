@@ -97,11 +97,11 @@ require("lazy").setup({
         "TmuxNavigatorProcessList",
     },
     keys = {
-        { "<C-h>", "<cmd><C-U>TmuxNavigateLeft<CR>" },
-        { "<C-j>", "<cmd><C-U>TmuxNavigateDown<CR>" },
-        { "<C-k>", "<cmd><C-U>TmuxNavigateUp<CR>" },
-        { "<C-l>", "<cmd><C-U>TmuxNavigateRight<CR>" },
-        { "<C-\\>", "<cmd><C-U>TmuxNavigatePrevious<CR>" },
+        { "<C-h>", "<CMD><C-U>TmuxNavigateLeft<CR>" },
+        { "<C-j>", "<CMD><C-U>TmuxNavigateDown<CR>" },
+        { "<C-k>", "<CMD><C-U>TmuxNavigateUp<CR>" },
+        { "<C-l>", "<CMD><C-U>TmuxNavigateRight<CR>" },
+        { "<C-\\>", "<CMD><C-U>TmuxNavigatePrevious<CR>" },
     },
 },
 
@@ -110,11 +110,11 @@ require("lazy").setup({
     opts = {
         toggler = {
             line = '<C-_>',
-            block = '<nop>',
+            block = '<NOP>',
         },
         opleader = {
             line = '<C-_>',
-            block = '<nop>',
+            block = '<NOP>',
         },
         mappings = {
             basic = true,
@@ -375,6 +375,36 @@ require("lazy").setup({
     }
 },
 
+{ -- file explorer and more
+    "stevearc/oil.nvim",
+    lazy = false,
+    dependencies = {
+        {
+            "nvim-tree/nvim-web-devicons",
+            opts = {}
+        },
+    },
+    opts = {
+        keymaps = {
+            ["<leader>o?"] = { "actions.show_help", mode = "n" },
+            ["<CR>"] = "actions.select",
+            ["<leader>ov"] = { "actions.select", opts = { vertical = true } },
+            ["<leader>os"] = { "actions.select", opts = { horizontal = true } },
+            ["<leader>ot"] = { "actions.select", opts = { tab = true } },
+            ["<leader>op"] = "actions.preview",
+            ["_"] = { "actions.close", mode = "n" },
+            ["<leader>or"] = "actions.refresh",
+            ["-"] = { "actions.parent", mode = "n" },
+            ["~"] = { "actions.open_cwd", mode = "n" },
+            ["<leader>cs"] = { "actions.change_sort", mode = "n" },
+            ["<leader>ox"] = "actions.open_external",
+            ["<leader>o."] = { "actions.toggle_hidden", mode = "n" },
+            ["<leader>o\\"] = { "actions.toggle_trash", mode = "n" },
+        },
+        use_default_keymaps = false,
+    }
+},
+
 })
 
 --[[========================== KEYBOARD SHORTCUTS ==========================]]--
@@ -385,7 +415,7 @@ local neogit = require("neogit")
 
 fn_repeat(vim.keymap.set, {
     -- remove highlights:
-    { "n", "<Esc>", "<cmd>nohlsearch<CR>"},
+    { "n", "<ESC>", "<CMD>nohlsearch<CR>"},
 
     -- cut/copy/paste:
     { "n", "<leader>yy", '"+yy', { desc = "Copy to system clipboard" }},
@@ -412,22 +442,25 @@ fn_repeat(vim.keymap.set, {
     { "n", "<leader>do", vim.diagnostic.open_float, { desc = "[D]iagnostic [O]pen"}},
 
     -- terminal:
-    { "n", "<C-w><C-w>", ":ToggleTerm<CR>",              { desc = "Open terminal" }},
+    { "n", "<C-w><C-w>", "<CMD>ToggleTerm<CR>",              { desc = "Open terminal" }},
     { "t", "<C-w><C-w>", "<C-\\><C-n>:ToggleTerm<CR>",   { desc = "Close terminal" }},
     { "t", "<Esc><Esc>", "<C-\\><C-n>",                  { desc = "Escape terminal mode" }},
 
     -- windows:
-    { "n", "<C-w><C-h>", ":vertical resize -5<CR>",      { desc = "Vertical window resize up" }},
-    { "n", "<C-w><C-l>", ":vertical resize +5<CR>",      { desc = "Vertical window resize down" }},
-    { "n", "<C-w><C-j>", ":resize -5<CR>",               { desc = "Horizontal window resize left" }},
-    { "n", "<C-w><C-k>", ":resize +5<CR>",               { desc = "Horizontal window resize right" }},
+    { "n", "<C-w><C-h>", "<CMD>vertical resize -5<CR>",      { desc = "Vertical window resize up" }},
+    { "n", "<C-w><C-l>", "<CMD>vertical resize +5<CR>",      { desc = "Vertical window resize down" }},
+    { "n", "<C-w><C-j>", "<CMD>resize -5<CR>",               { desc = "Horizontal window resize left" }},
+    { "n", "<C-w><C-k>", "<CMD>resize +5<CR>",               { desc = "Horizontal window resize right" }},
 
     -- git:
     { "n", "<leader>gg", neogit.open,    { desc = "[G]it [S]tatus" }},
 
+    -- file explorer:
+    { "n", "-", "<CMD>Oil<CR>", { desc = "Open Parent Directory" }},
+
     -- disable defaults:
-    { "i", "<C-j>", "<nop>"},
-    { "i", "<C-k>", "<nop>"},
+    { "i", "<C-j>", "<NOP>"},
+    { "i", "<C-k>", "<NOP>"},
 })
 
 --[[============================= AUTOCOMMANDS =============================]]--
