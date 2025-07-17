@@ -37,7 +37,6 @@ tbl_set_keys(vim.opt, {
     shiftwidth = 4,
     expandtab = true,
     breakindent = true,
-    undofile = true,
     ignorecase = true,
     smartcase = true,
     signcolumn = "yes",
@@ -293,16 +292,23 @@ require("lazy").setup({
         },
     },
     opts = {
-        component_separators = { left = '', right = ''},
-        section_separators = { left = '', right = ''},
+        options  ={
+            component_separators = config.nerd_font_enabled and {
+                left = '', right = ''
+            } or "",
+            section_separators = config.nerd_font_enabled and {
+                left = '', right = ''
+            } or "",
+        },
         sections = {
             lualine_a = {'mode'},
             lualine_b = {'diff', 'diagnostics'},
             lualine_c = {'filename'},
-            lualine_x = {
+            lualine_x = config.nerd_font_enabled and {
                 'encoding',
                 'fileformat',
-                'filetype'},
+                'filetype'
+            } or {},
             lualine_y = {'progress'},
             lualine_z = {'location'}
         },
@@ -383,6 +389,7 @@ require("lazy").setup({
         },
     },
     opts = {
+        columns = config.nerd_font_enabled and { "icon" } or {},
         keymaps = {
             ["<leader>o?"] = { "actions.show_help", mode = "n" },
             ["<CR>"] = "actions.select",
@@ -407,8 +414,22 @@ require("lazy").setup({
 
 --[[========================== KEYBOARD SHORTCUTS ==========================]]--
 
-local telescope_builtin = require("telescope.builtin")
-local telescope_lga = require("telescope").extensions.live_grep_args
+local telescope = function(name)
+    local builtin = require("telescope.builtin")
+    local lga = require("telescope").extensions.live_grep_args
+    local opts = { disable_devicons = not config.nerd_font_enabled }
+    
+    local picker = nil
+    if name == "live_grep_args" then
+        picker = lga.live_grep_args
+    else
+        picker = builtin[name]
+    end
+
+    return function()
+        picker(opts)
+    end
+end
 local neogit = require("neogit")
 
 fn_repeat(vim.keymap.set, {
@@ -426,15 +447,15 @@ fn_repeat(vim.keymap.set, {
     { "v", "<leader>P", '"+P',   { desc = "Paste replacing highlighted from system clipboard" }},
 
     -- telescope:
-    { "n", "<leader>ff", telescope_builtin.find_files,   { desc = "[F]ind [F]iles" }},
-    { "n", "<leader>fg", telescope_lga.live_grep_args,   { desc = "[F]ind by [G]rep" }},
-    { "n", "<leader>fw", telescope_builtin.grep_string,  { desc = "[F]ind current [W]ord" }},
-    { "n", "<leader>fb", telescope_builtin.buffers,      { desc = "[F]ind [B]uffers" }},
-    { "n", "<leader>fk", telescope_builtin.keymaps,      { desc = "[F]ind [K]eymaps" }},
-    { "n", "<leader>fd", telescope_builtin.diagnostics,  { desc = "[F]ind [D]iagnostics" }},
-    { "n", "<leader>fl", telescope_builtin.resume,       { desc = "[F]ind [L]ast search" }},
-    { "n", "<leader>fr", telescope_builtin.oldfiles,     { desc = "[F]ind [R]ecent" }},
-    { "n", "<leader>fh", telescope_builtin.help_tags,    { desc = "[F]ind [H]elp" }},
+    { "n", "<leader>ff", telescope("find_files"),       { desc = "[F]ind [F]iles" }},
+    { "n", "<leader>fg", telescope("live_grep_args"),   { desc = "[F]ind by [G]rep" }},
+    { "n", "<leader>fw", telescope("grep_string"),      { desc = "[F]ind current [W]ord" }},
+    { "n", "<leader>fb", telescope("buffers"),          { desc = "[F]ind [B]uffers" }},
+    { "n", "<leader>fk", telescope("keymaps"),          { desc = "[F]ind [K]eymaps" }},
+    { "n", "<leader>fd", telescope("diagnostics"),      { desc = "[F]ind [D]iagnostics" }},
+    { "n", "<leader>fl", telescope("resume"),           { desc = "[F]ind [L]ast search" }},
+    { "n", "<leader>fr", telescope("oldfiles"),         { desc = "[F]ind [R]ecent" }},
+    { "n", "<leader>fh", telescope("help_tags"),        { desc = "[F]ind [H]elp" }},
 
     -- diagnostics:
     { "n", "<leader>do", vim.diagnostic.open_float, { desc = "[D]iagnostic [O]pen"}},
