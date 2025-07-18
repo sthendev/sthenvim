@@ -503,9 +503,23 @@ fn_repeat(vim.keymap.set, {
     { "i", "<C-k>", "<NOP>"},
 })
 
+--[[=============================== COMMANDS ===============================]]--
+
+fn_repeat(vim.api.nvim_create_user_command, {
+    {
+        "TrimWhitespace", "%s/\\s\\+$//e", {}
+    },
+})
+
 --[[============================= AUTOCOMMANDS =============================]]--
 
-fn_repeat(vim.api.nvim_create_autocmd, {
+local function create_autocommand(name, opts, disabled)
+    if not disabled == true then
+        vim.api.nvim_create_autocmd(name, opts)
+    end
+end
+
+fn_repeat(create_autocommand, {
     { -- highlight text on yank
         "TextYankPost",
         {
@@ -540,6 +554,14 @@ fn_repeat(vim.api.nvim_create_autocmd, {
             end,
         }
     },
+    { -- trim trailing whitespace on write
+        "BufWritePre",
+        {
+            pattern = "*",
+            command = ":TrimWhitespace",
+        },
+        disabled = not config.trim_whitespace_on_write
+    }
 })
 
 --[[========================================================================]]--
