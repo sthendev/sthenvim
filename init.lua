@@ -412,13 +412,27 @@ require("lazy").setup({
 
 })
 
+--[[========================== DIAGNOSTICS CONFIG ==========================]]--
+
+vim.diagnostic.config({
+    severity_sort = true,
+    signs = config.nerd_font_enabled and {
+        text = {
+            [vim.diagnostic.severity.ERROR] = '󰅚 ',
+            [vim.diagnostic.severity.WARN] = '󰀪 ',
+            [vim.diagnostic.severity.INFO] = '󰋽 ',
+            [vim.diagnostic.severity.HINT] = '󰌶 ',
+        },
+    } or {},
+})
+
 --[[========================== KEYBOARD SHORTCUTS ==========================]]--
 
 local telescope = function(name)
     local builtin = require("telescope.builtin")
     local lga = require("telescope").extensions.live_grep_args
     local opts = { disable_devicons = not config.nerd_font_enabled }
-    
+
     local picker = nil
     if name == "live_grep_args" then
         picker = lga.live_grep_args
@@ -519,20 +533,6 @@ fn_repeat(vim.api.nvim_create_autocmd, {
             end,
         }
     },
-})
-
---[[========================== DIAGNOSTICS CONFIG ==========================]]--
-
-vim.diagnostic.config({
-    severity_sort = true,
-    signs = config.nerd_font_enabled and {
-        text = {
-            [vim.diagnostic.severity.ERROR] = '󰅚 ',
-            [vim.diagnostic.severity.WARN] = '󰀪 ',
-            [vim.diagnostic.severity.INFO] = '󰋽 ',
-            [vim.diagnostic.severity.HINT] = '󰌶 ',
-        },
-    } or {},
 })
 
 --[[========================================================================]]--
