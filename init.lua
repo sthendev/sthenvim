@@ -287,6 +287,9 @@ require("lazy").setup({
         sources = {
             default = { "lsp", "path", "buffer" },
         },
+        signature = {
+            enabled = true
+        }
     }
 },
 
