@@ -115,12 +115,12 @@ require("lazy").setup({
     "numToStr/Comment.nvim",
     opts = {
         toggler = {
-            line = '<C-_>',
-            block = '<NOP>',
+            line = "<C-_>",
+            block = "<NOP>",
         },
         opleader = {
-            line = '<C-_>',
-            block = '<NOP>',
+            line = "<C-_>",
+            block = "<NOP>",
         },
         mappings = {
             basic = true,
@@ -305,22 +305,24 @@ require("lazy").setup({
         options  ={
             component_separators = config.nerd_font_enabled and {
                 left = '', right = ''
-            } or "",
+            } or '',
             section_separators = config.nerd_font_enabled and {
                 left = '', right = ''
-            } or "",
+            } or '',
         },
         sections = {
-            lualine_a = {'mode'},
-            lualine_b = {'diff', 'diagnostics'},
-            lualine_c = {'filename'},
+            lualine_a = { "mode" },
+            lualine_b = { "diff", "diagnostics" },
+            lualine_c = {
+                {"filename", path = 1}
+            },
             lualine_x = config.nerd_font_enabled and {
-                'encoding',
-                'fileformat',
-                'filetype'
+                "encoding",
+                "fileformat",
+                "filetype",
             } or {},
-            lualine_y = {'progress'},
-            lualine_z = {'location'}
+            lualine_y = { "progress" },
+            lualine_z = { "location" },
         },
     }
 },
