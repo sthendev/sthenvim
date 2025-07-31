@@ -186,7 +186,7 @@ require("lazy").setup({
                         i = {
                             ["<C-k>"] = telescope_lga_actions.quote_prompt(),
                             ["<C-i>"] = telescope_lga_actions.quote_prompt({ postfix = " --iglob " }),
-                            ["<C-space>"] = telescope_lga_actions.to_fuzzy_refine,
+                            ["<C-SPACE>"] = telescope_lga_actions.to_fuzzy_refine,
                         }
                     },
                 }
@@ -282,7 +282,26 @@ require("lazy").setup({
     version = "1.*",
     opts = {
         keymap = {
-            preset = "super-tab"
+            preset = "none",
+            ["<C-SPACE>"] = { "show", "show_documentation", "hide_documentation" },
+            ["<C-e>"] = { "hide", "fallback" },
+
+            ["<TAB>"] = {
+              function(cmp)
+                if cmp.snippet_active() then return cmp.accept()
+                else return cmp.select_and_accept() end
+              end,
+              "snippet_forward",
+              "fallback"
+            },
+            ["<S-TAB>"] = { "snippet_backward", "fallback" },
+            ["<UP>"] = { "select_prev", "fallback" },
+            ["<DOWN>"] = { "select_next", "fallback" },
+            ["<C-k>"] = { "select_prev", "fallback_to_mappings" },
+            ["<C-j>"] = { "select_next", "fallback_to_mappings" },
+            ["<C-p>"] = { "scroll_documentation_up", "fallback" },
+            ["<C-n>"] = { "scroll_documentation_down", "fallback" },
+            ["<C-s>"] = { "show_signature", "hide_signature", "fallback" },
         },
         sources = {
             default = { "lsp", "path", "buffer" },
@@ -419,6 +438,9 @@ require("lazy").setup({
             ["<leader>o\\"] = { "actions.toggle_trash", mode = "n" },
         },
         use_default_keymaps = false,
+        view_options = {
+            show_hidden = true,
+        },
     }
 },
 
@@ -555,6 +577,7 @@ fn_repeat(create_autocommand, {
                     { "gh", vim.lsp.buf.hover,           "[G]o [H]over" },
                     { "gi", vim.lsp.buf.implementation,  "[G]o [I]mplementation" },
                     { "gr", vim.lsp.buf.references,      "[G]o [R]eferences" },
+                    { "gs", "<CMD>LspClangdSwitchSourceHeader<CR>", "[G]o [S]witch Source/Header" },
                 })
             end,
         }
