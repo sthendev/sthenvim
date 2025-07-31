@@ -495,6 +495,18 @@ vim.diagnostic.config({
     } or {},
 })
 
+--[[============================= DEFINE SIGNS =============================]]--
+
+if config.nerd_font_enabled then
+    fn_repeat(vim.fn.sign_define, {
+        { "DapBreakpoint",          { text = '󰀩 '}},
+        { "DapBreakpointRejected",  { text = '󰝧 '}},
+        { "DapBreakpointCondition", { text = '󱄶 '}},
+        { "DapLogPoint",            { text = '󰭺 '}},
+        { "DapStopped",             { text = '→ '}},
+    })
+end
+
 --[[========================== KEYBOARD SHORTCUTS ==========================]]--
 
 local telescope = function(name)
@@ -515,8 +527,6 @@ local telescope = function(name)
 end
 
 local neogit = require("neogit")
-local dap = require("dap")
-local dap_ui = require("dap.ui.widgets")
 
 fn_repeat(vim.keymap.set, {
     -- remove highlights:
@@ -558,11 +568,14 @@ fn_repeat(vim.keymap.set, {
     { "n", "<C-w><C-k>", "<CMD>resize +5<CR>",          { desc = "Horizontal window resize right" }},
 
     -- debugging:
-    { "n", "<leader>db", dap.toggle_breakpoint, { desc = "[D]ebugger toggle [B]reakpoint" }},
-    { "n", "<leader>dr", dap.continue,          { desc = "[D]ebugger [R]un" }},
-    { "n", "<leader>ds", dap.step_over,         { desc = "[D]ebugger [S]tep Over" }},
-    { "n", "<leader>di", dap.step_into,         { desc = "[D]ebugger Step [I]nto" }},
-    { "n", "<leader>do", dap.step_out,          { desc = "[D]ebugger Step [O]ut" }},
+    { "n", "<leader>dr", "<CMD>DapContinue<CR>",         { desc = "[D]ebugger [R]un" }},
+    { "n", "<leader>dt", "<CMD>DapTerminate<CR>",        { desc = "[D]ebugger [T]erminate" }},
+    { "n", "<leader>dp", "<CMD>DapPause<CR>",            { desc = "[D]ebugger [P]ause" }},
+    { "n", "<leader>db", "<CMD>DapToggleBreakpoint<CR>", { desc = "[D]ebugger toggle [B]reakpoint" }},
+    { "n", "<leader>dc", "<CMD>DapClearBreakpoints<CR>", { desc = "[D]ebugger [C]lear breakpoints" }},
+    { "n", "<leader>ds", "<CMD>DapStepOver<CR>",         { desc = "[D]ebugger [S]tep over" }},
+    { "n", "<leader>di", "<CMD>DapStepInto<CR>",         { desc = "[D]ebugger step [I]nto" }},
+    { "n", "<leader>do", "<CMD>DapStepOut<CR>",          { desc = "[D]ebugger step [O]ut" }},
 
     -- git:
     { "n", "<leader>gg", neogit.open, { desc = "[G]it [S]tatus" }},
