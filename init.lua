@@ -312,6 +312,44 @@ require("lazy").setup({
     }
 },
 
+{ -- debugging
+    "rcarriga/nvim-dap-ui",
+    dependencies = {
+        "mfussenegger/nvim-dap",
+        "nvim-neotest/nvim-nio",
+        {
+            "jay-babu/mason-nvim-dap.nvim",
+            dependencies = {
+                "mason-org/mason.nvim",
+            },
+            opts = {
+                ensure_installed = {
+                    "codelldb",
+                },
+                handlers = {}
+            }
+        }
+    },
+    config = function()
+        require("dapui").setup()
+
+        local dap = require("dap")
+        local dapui = require("dapui")
+        dap.listeners.before.attach.dapui_config = function()
+          dapui.open()
+        end
+        dap.listeners.before.launch.dapui_config = function()
+          dapui.open()
+        end
+        dap.listeners.before.event_terminated.dapui_config = function()
+          dapui.close()
+        end
+        dap.listeners.before.event_exited.dapui_config = function()
+          dapui.close()
+        end
+    end
+},
+
 { --  status line
     "nvim-lualine/lualine.nvim",
     dependencies = {
@@ -475,7 +513,10 @@ local telescope = function(name)
         picker(opts)
     end
 end
+
 local neogit = require("neogit")
+local dap = require("dap")
+local dap_ui = require("dap.ui.widgets")
 
 fn_repeat(vim.keymap.set, {
     -- remove highlights:
@@ -492,32 +533,39 @@ fn_repeat(vim.keymap.set, {
     { "v", "<leader>P", '"+P',   { desc = "Paste replacing highlighted from system clipboard" }},
 
     -- telescope:
-    { "n", "<leader>ff", telescope("find_files"),       { desc = "[F]ind [F]iles" }},
-    { "n", "<leader>fg", telescope("live_grep_args"),   { desc = "[F]ind by [G]rep" }},
-    { "n", "<leader>fw", telescope("grep_string"),      { desc = "[F]ind current [W]ord" }},
-    { "n", "<leader>fb", telescope("buffers"),          { desc = "[F]ind [B]uffers" }},
-    { "n", "<leader>fk", telescope("keymaps"),          { desc = "[F]ind [K]eymaps" }},
-    { "n", "<leader>fd", telescope("diagnostics"),      { desc = "[F]ind [D]iagnostics" }},
-    { "n", "<leader>fl", telescope("resume"),           { desc = "[F]ind [L]ast search" }},
-    { "n", "<leader>fr", telescope("oldfiles"),         { desc = "[F]ind [R]ecent" }},
-    { "n", "<leader>fh", telescope("help_tags"),        { desc = "[F]ind [H]elp" }},
+    { "n", "<leader>ff", telescope("find_files"),     { desc = "[F]ind [F]iles" }},
+    { "n", "<leader>fg", telescope("live_grep_args"), { desc = "[F]ind by [G]rep" }},
+    { "n", "<leader>fw", telescope("grep_string"),    { desc = "[F]ind current [W]ord" }},
+    { "n", "<leader>fb", telescope("buffers"),        { desc = "[F]ind [B]uffers" }},
+    { "n", "<leader>fk", telescope("keymaps"),        { desc = "[F]ind [K]eymaps" }},
+    { "n", "<leader>fd", telescope("diagnostics"),    { desc = "[F]ind [D]iagnostics" }},
+    { "n", "<leader>fl", telescope("resume"),         { desc = "[F]ind [L]ast search" }},
+    { "n", "<leader>fr", telescope("oldfiles"),       { desc = "[F]ind [R]ecent" }},
+    { "n", "<leader>fh", telescope("help_tags"),      { desc = "[F]ind [H]elp" }},
 
     -- diagnostics:
-    { "n", "<leader>do", vim.diagnostic.open_float, { desc = "[D]iagnostic [O]pen"}},
+    { "n", "<leader>dh", vim.diagnostic.open_float, { desc = "[D]iagnostic [H]over"}},
 
     -- terminal:
-    { "n", "<C-w><C-w>", "<CMD>ToggleTerm<CR>",              { desc = "Open terminal" }},
-    { "t", "<C-w><C-w>", "<C-\\><C-n>:ToggleTerm<CR>",   { desc = "Close terminal" }},
-    { "t", "<Esc><Esc>", "<C-\\><C-n>",                  { desc = "Escape terminal mode" }},
+    { "n", "<C-w><C-w>", "<CMD>ToggleTerm<CR>",        { desc = "Open terminal" }},
+    { "t", "<C-w><C-w>", "<C-\\><C-n>:ToggleTerm<CR>", { desc = "Close terminal" }},
+    { "t", "<Esc><Esc>", "<C-\\><C-n>",                { desc = "Escape terminal mode" }},
 
     -- windows:
-    { "n", "<C-w><C-h>", "<CMD>vertical resize -5<CR>",      { desc = "Vertical window resize up" }},
-    { "n", "<C-w><C-l>", "<CMD>vertical resize +5<CR>",      { desc = "Vertical window resize down" }},
-    { "n", "<C-w><C-j>", "<CMD>resize -5<CR>",               { desc = "Horizontal window resize left" }},
-    { "n", "<C-w><C-k>", "<CMD>resize +5<CR>",               { desc = "Horizontal window resize right" }},
+    { "n", "<C-w><C-h>", "<CMD>vertical resize -5<CR>", { desc = "Vertical window resize up" }},
+    { "n", "<C-w><C-l>", "<CMD>vertical resize +5<CR>", { desc = "Vertical window resize down" }},
+    { "n", "<C-w><C-j>", "<CMD>resize -5<CR>",          { desc = "Horizontal window resize left" }},
+    { "n", "<C-w><C-k>", "<CMD>resize +5<CR>",          { desc = "Horizontal window resize right" }},
+
+    -- debugging:
+    { "n", "<leader>db", dap.toggle_breakpoint, { desc = "[D]ebugger toggle [B]reakpoint" }},
+    { "n", "<leader>dr", dap.continue,          { desc = "[D]ebugger [R]un" }},
+    { "n", "<leader>ds", dap.step_over,         { desc = "[D]ebugger [S]tep Over" }},
+    { "n", "<leader>di", dap.step_into,         { desc = "[D]ebugger Step [I]nto" }},
+    { "n", "<leader>do", dap.step_out,          { desc = "[D]ebugger Step [O]ut" }},
 
     -- git:
-    { "n", "<leader>gg", neogit.open,    { desc = "[G]it [S]tatus" }},
+    { "n", "<leader>gg", neogit.open, { desc = "[G]it [S]tatus" }},
 
     -- file explorer:
     { "n", "-", "<CMD>Oil<CR>", { desc = "Open Parent Directory" }},
