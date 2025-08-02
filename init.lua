@@ -28,7 +28,6 @@ local function fn_repeat(f, v)
     end
 end
 
-
 --[[=============================== SETTINGS ===============================]]--
 
 tbl_set_keys(vim.g, {
