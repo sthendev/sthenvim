@@ -275,6 +275,7 @@ require("lazy").setup({
             "cmake",
             "lua_ls",
             "pyright",
+            "bashls"
         }
     }
 },
