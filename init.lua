@@ -230,7 +230,10 @@ require("lazy").setup({
                 return true
             end
         }
-    }
+    },
+    config = function(_, opts)
+        require("nvim-treesitter.configs").setup(opts)
+    end
 },
 
 { -- treesitter context lines
@@ -283,7 +286,7 @@ require("lazy").setup({
         keymap = {
             preset = "none",
             ["<C-SPACE>"] = { "show", "show_documentation", "hide_documentation" },
-            ["<C-e>"] = { "hide", "fallback" },
+            ["<C-q>"] = { "hide", "fallback" },
 
             ["<TAB>"] = {
               function(cmp)
