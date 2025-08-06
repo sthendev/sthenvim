@@ -183,8 +183,8 @@ require("lazy").setup({
                     auto_quoting = true,
                     mappings = {
                         i = {
-                            ["<C-k>"] = telescope_lga_actions.quote_prompt(),
-                            ["<C-i>"] = telescope_lga_actions.quote_prompt({ postfix = " --iglob " }),
+                            ["<C-s>"] = telescope_lga_actions.quote_prompt(),
+                            ["<C-f>"] = telescope_lga_actions.quote_prompt({ postfix = " --iglob " }),
                             ["<C-SPACE>"] = telescope_lga_actions.to_fuzzy_refine,
                         }
                     },
