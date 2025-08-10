@@ -52,7 +52,7 @@ tbl_set_keys(vim.opt, {
     splitbelow = true,
     list = true,
     listchars = { tab = "» ", trail = "·", nbsp = "␣" },
-    colorcolumn = { 80 },
+    colorcolumn = { 80, 120 },
     inccommand = "split",
     scrolloff = 3,
     confirm = true,
@@ -135,7 +135,6 @@ require("lazy").setup({
 
 { -- auto brackets and more:
     "windwp/nvim-autopairs",
-    event = "InsertEnter",
     opts = {}
 },
 
@@ -393,6 +392,17 @@ require("lazy").setup({
     opts = {
         shell = "bash -l",
         direction = "float",
+        highlights = {
+            NormalFloat = {
+                link = "NormalFloat"
+            },
+            FloatBorder = {
+                link = "FloatBorder"
+            }
+        },
+        float_opts = {
+            border = 'curved'
+        },
     }
 },
 
