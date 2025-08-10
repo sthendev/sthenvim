@@ -401,7 +401,7 @@ require("lazy").setup({
             }
         },
         float_opts = {
-            border = 'curved'
+            border = "rounded"
         },
     }
 },
@@ -506,6 +506,9 @@ vim.diagnostic.config({
             [vim.diagnostic.severity.HINT] = '󰌶 ',
         },
     } or {},
+    float = {
+        border = "rounded",
+    }
 })
 
 --[[============================= DEFINE SIGNS =============================]]--
@@ -642,12 +645,21 @@ fn_repeat(create_autocommand, {
                     vim.keymap.set("n", keys, func, { desc = desc, buffer = event.buffer})
                 end
 
+                local lsp = function(name)
+                    if name == "hover" then
+                        return function()
+                            vim.lsp.buf.hover({ border = "rounded" })
+                        end
+                    end
+                    return vim.lsp.buf[name]
+                end
+
                 fn_repeat(map, {
-                    { "gd", vim.lsp.buf.definition,      "[G]o [D]efinition" },
-                    { "gD", vim.lsp.buf.declaration,     "[G]o [D]eclaration" },
-                    { "gh", vim.lsp.buf.hover,           "[G]o [H]over" },
-                    { "gi", vim.lsp.buf.implementation,  "[G]o [I]mplementation" },
-                    { "gr", vim.lsp.buf.references,      "[G]o [R]eferences" },
+                    { "gd", lsp("definition"),                      "[G]o [D]efinition" },
+                    { "gD", lsp("declaration"),                     "[G]o [D]eclaration" },
+                    { "gh", lsp("hover"),                           "[G]o [H]over" },
+                    { "gi", lsp("implementation"),                  "[G]o [I]mplementation" },
+                    { "gr", lsp("references"),                      "[G]o [R]eferences" },
                     { "gs", "<CMD>LspClangdSwitchSourceHeader<CR>", "[G]o [S]witch Source/Header" },
                 })
             end,
