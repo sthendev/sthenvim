@@ -110,24 +110,6 @@ require("lazy").setup({
     },
 },
 
-{ -- commenting shortcuts:
-    "numToStr/Comment.nvim",
-    opts = {
-        toggler = {
-            line = "<C-_>",
-            block = "<NOP>",
-        },
-        opleader = {
-            line = "<C-_>",
-            block = "<NOP>",
-        },
-        mappings = {
-            basic = true,
-            extra = false,
-        },
-    }
-},
-
 { -- detect indentation:
     "nmac427/guess-indent.nvim",
     opts = {}
@@ -560,6 +542,10 @@ fn_repeat(vim.keymap.set, {
     { "v", "<leader>d", '"+d',   { desc = "Cut highlighted to system clipboad" }},
     { "v", "<leader>p", '"+p',   { desc = "Paste replacing highlighted from system clipboard" }},
     { "v", "<leader>P", '"+P',   { desc = "Paste replacing highlighted from system clipboard" }},
+
+    -- commenting:
+    { "n", "<C-_>", "<CMD>norm gcc<CR>", { desc = "Comment line" }},
+    { "v", "<C-_>", "<CMD>norm gc<CR>",  { desc = "Comment block" }},
 
     -- telescope:
     { "n", "<leader>ff", telescope("find_files"),     { desc = "[F]ind [F]iles" }},
