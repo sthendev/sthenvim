@@ -477,6 +477,19 @@ require("lazy").setup({
     }
 },
 
+{ -- copilot
+    "github/copilot.vim",
+    opts = {
+        enabled = false,
+        no_tab_map = true,
+    },
+    config = function(_, opts)
+        for k, v in pairs(opts) do
+            vim.g["copilot_" .. k] = v
+        end
+    end
+},
+
 })
 
 --[[========================== DIAGNOSTICS CONFIG ==========================]]--
@@ -596,6 +609,13 @@ fn_repeat(vim.keymap.set, {
 
     -- file explorer:
     { "n", "-", "<CMD>Oil<CR>", { desc = "Open Parent Directory" }},
+
+    -- copilot:
+    { "i", "<M-y>",  'copilot#Accept("")',       { desc = "Copilot accept", expr = true, replace_keycodes = false }},
+    { "i", "<M-u>",  "<Plug>(copilot-dismiss)",  { desc = "Copilot dismiss"}},
+    { "i", "<M-i>",  "<Plug>(copilot-next)",     { desc = "Copilot next" }},
+    { "i", "<M-o>",  "<Plug>(copilot-previous)", { desc = "Copilot previous" }},
+    { "i", "<M-p>",  "<Plug>(copilot-suggest)",  { desc = "Copilot suggest" }},
 
     -- disable defaults:
     { "i", "<C-j>", "<NOP>"},
