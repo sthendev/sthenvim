@@ -520,6 +520,15 @@ local telescope = function(name)
         picker = lga.live_grep_args
     else
         picker = builtin[name]
+        if name == "find_files" then
+            opts = vim.tbl_extend("keep", opts, {
+                find_command = {
+                    "rg", "--files", "--hidden",
+                    "--glob", "!**/.git/*",
+                    "--glob", "!**/node_modules/*"
+                }
+	    })
+        end
     end
 
     return function()
