@@ -57,6 +57,7 @@ tbl_set_keys(vim.opt, {
     scrolloff = 3,
     confirm = true,
     showmode = false,
+    winborder = "rounded",
 })
 
 --[[================================= LAZY =================================]]--
@@ -292,6 +293,11 @@ require("lazy").setup({
         },
         signature = {
             enabled = true
+        },
+        completion = {
+            menu = {
+                border = "none"
+            }
         }
     }
 },
@@ -381,10 +387,7 @@ require("lazy").setup({
             FloatBorder = {
                 link = "FloatBorder"
             }
-        },
-        float_opts = {
-            border = "rounded"
-        },
+        }
     }
 },
 
@@ -504,9 +507,6 @@ vim.diagnostic.config({
             [vim.diagnostic.severity.HINT] = '󰌶 ',
         },
     } or {},
-    float = {
-        border = "rounded",
-    }
 })
 
 --[[============================= DEFINE SIGNS =============================]]--
@@ -664,11 +664,6 @@ fn_repeat(create_autocommand, {
                 end
 
                 local lsp = function(name)
-                    if name == "hover" then
-                        return function()
-                            vim.lsp.buf.hover({ border = "rounded" })
-                        end
-                    end
                     return vim.lsp.buf[name]
                 end
 
@@ -690,7 +685,22 @@ fn_repeat(create_autocommand, {
             command = ":TrimWhitespace",
         },
         disabled = not config.trim_whitespace_on_write
-    }
+    },
+    { -- remove after next telescope release
+        "User",
+        {
+            pattern = "TelescopeFindPre",
+            callback = function()
+                vim.opt_local.winborder = "none"
+                vim.api.nvim_create_autocmd("WinLeave", {
+                    once = true,
+                    callback = function()
+                        vim.opt_local.winborder = "rounded"
+                    end
+                })
+            end
+        }
+    },
 })
 
 --[[========================================================================]]--
