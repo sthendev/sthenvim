@@ -286,7 +286,6 @@ require("lazy").setup({
             ["<C-j>"] = { "select_next", "fallback_to_mappings" },
             ["<C-p>"] = { "scroll_documentation_up", "fallback" },
             ["<C-n>"] = { "scroll_documentation_down", "fallback" },
-            ["<C-s>"] = { "show_signature", "hide_signature", "fallback" },
         },
         sources = {
             default = { "lsp", "path", "buffer" },
@@ -356,6 +355,11 @@ require("lazy").setup({
             section_separators = config.nerd_font_enabled and {
                 left = '', right = ''
             } or '',
+            disabled_filetypes = {
+                "Avante",
+                "AvanteSelectedFiles",
+                "AvanteInput",
+            }
         },
         sections = {
             lualine_a = { "mode" },
@@ -480,17 +484,35 @@ require("lazy").setup({
     }
 },
 
-{ -- copilot
-    "github/copilot.vim",
-    opts = {
-        enabled = false,
-        no_tab_map = true,
+{ -- ai integration
+    "yetone/avante.nvim",
+    version = false,
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+        "MunifTanjim/nui.nvim",
+        "nvim-tree/nvim-web-devicons",
+        "zbirenbaum/copilot.lua",
     },
-    config = function(_, opts)
-        for k, v in pairs(opts) do
-            vim.g["copilot_" .. k] = v
-        end
-    end
+    build = "make",
+    event = "VeryLazy",
+    opts = {
+        provider = "copilot",
+        windows = {
+            sidebar_header = {
+                enabled = true,
+                rounded = false,
+            },
+            edit = {
+                border = "rounded"
+            },
+            ask = {
+                border = "rounded"
+            },
+        },
+        hints = {
+            enabled = false
+        },
+    }
 },
 
 })
@@ -609,13 +631,6 @@ fn_repeat(vim.keymap.set, {
 
     -- file explorer:
     { "n", "-", "<CMD>Oil<CR>", { desc = "Open Parent Directory" }},
-
-    -- copilot:
-    { "i", "<M-y>",  'copilot#Accept("")',       { desc = "Copilot accept", expr = true, replace_keycodes = false }},
-    { "i", "<M-u>",  "<Plug>(copilot-dismiss)",  { desc = "Copilot dismiss"}},
-    { "i", "<M-i>",  "<Plug>(copilot-next)",     { desc = "Copilot next" }},
-    { "i", "<M-o>",  "<Plug>(copilot-previous)", { desc = "Copilot previous" }},
-    { "i", "<M-p>",  "<Plug>(copilot-suggest)",  { desc = "Copilot suggest" }},
 
     -- disable defaults:
     { "i", "<C-j>", "<NOP>"},
