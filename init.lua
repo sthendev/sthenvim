@@ -10,6 +10,7 @@
 local config = {
     nerd_font_enabled = true,
     trim_whitespace_on_write = true,
+    ts_file_size_threshold = 1024 * 100, -- 100KB
 }
 
 --[[=========================== HELPER FUNCTIONS ===========================]]--
@@ -204,12 +205,9 @@ require("lazy").setup({
         highlight = {
             enable = true,
             disable = function(_, buf)
-                local max_file_size = 100 * 1024 -- 100 KB
-                local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-                if ok and stats and stats.size < max_file_size then
-                    return false
-                end
-                return true
+                -- check if file size exceeds threshold
+                local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
+                return ok and stats and stats.size > config.ts_file_size_threshold
             end
         }
     },
