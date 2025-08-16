@@ -84,7 +84,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 
 { -- colorscheme:
-    "embark-theme/vim",
+    "sthendev/embark.nvim",
     name = "embark",
     lazy = false,
     priority = 1000,
