@@ -398,7 +398,6 @@ require("lazy").setup({
     "NeogitOrg/neogit",
     dependencies = {
         "nvim-lua/plenary.nvim",
-        "sindrets/diffview.nvim",
     }
 },
 
@@ -447,6 +446,12 @@ require("lazy").setup({
             })
         end
     }
+},
+
+{ -- resolving git conflicts
+    "akinsho/git-conflict.nvim",
+    verison = "*",
+    opts = {}
 },
 
 { -- file explorer and more
