@@ -451,7 +451,9 @@ require("lazy").setup({
 { -- resolving git conflicts
     "akinsho/git-conflict.nvim",
     verison = "*",
-    opts = {}
+    opts = {
+        default_mappings = false,
+    }
 },
 
 { -- file explorer and more
@@ -634,7 +636,13 @@ fn_repeat(vim.keymap.set, {
     { "n", "<leader>do", "<CMD>DapStepOut<CR>",          { desc = "[D]ebugger step [O]ut" }},
 
     -- git:
-    { "n", "<leader>gg", neogit.open, { desc = "[G]it [S]tatus" }},
+    { "n", "<leader>gg", neogit.open,                          { desc = "Open Neogit" }},
+    { "n", "<leader>co", "<Plug>(git-conflict-ours)",          { desc = "Git Conflict [C]hoose [O]urs" }},
+    { "n", "<leader>ct", "<Plug>(git-conflict-theirs)",        { desc = "Git Conflict [C]hoose [T]heirs" }},
+    { "n", "<leader>cb", "<Plug>(git-conflict-both)",          { desc = "Git Conflict [C]hoose [B]oth" }},
+    { "n", "<leader>c0", "<Plug>(git-conflict-none)",          { desc = "Git Conflict [C]hoose None" }},
+    { "n", "[c",         "<Plug>(git-conflict-prev-conflict)", { desc = "Git Conflict Previous" }},
+    { "n", "]c",         "<Plug>(git-conflict-next-conflict)", { desc = "Git Conflict Next" }},
 
     -- file explorer:
     { "n", "-", "<CMD>Oil<CR>", { desc = "Open Parent Directory" }},
