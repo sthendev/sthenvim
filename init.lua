@@ -506,6 +506,9 @@ require("lazy").setup({
             ask = {
                 border = "rounded"
             },
+            spinner = {
+                thinking = {" "}
+            }
         },
         hints = {
             enabled = false
