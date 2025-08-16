@@ -357,6 +357,7 @@ require("lazy").setup({
                 "Avante",
                 "AvanteSelectedFiles",
                 "AvanteInput",
+                "AvanteTodos",
             }
         },
         sections = {
