@@ -124,7 +124,7 @@ require("lazy").setup({
 
 { -- navigation and more:
     "nvim-telescope/telescope.nvim",
-    branch = "0.1.*",
+    version = "0.1.*",
     dependencies =  {
         "nvim-lua/plenary.nvim",
         { -- live grep options
@@ -191,7 +191,6 @@ require("lazy").setup({
             "cmake",
             "cpp",
             "dockerfile",
-            "editorconfig",
             "json",
             "lua",
             "python",
