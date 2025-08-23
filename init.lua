@@ -9,4 +9,4 @@
 
 require("sthenvim.vim")
 require("sthenvim.lazy")
-require("sthenvim.other")
+require("sthenvim.keymaps")
